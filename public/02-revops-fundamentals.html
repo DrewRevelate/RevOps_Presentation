@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RevOps Fundamentals - Full Throttle Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="racing-stripe top-stripe"></div>
+        
+        <div class="slide-header">
+            <h2>RevOps Fundamentals</h2>
+            <div class="progress-indicator">
+                <div class="progress-bar" style="width: 20%;"></div>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <div class="two-column-layout">
+                <div class="left-column">
+                    <h3>What is Revenue Operations?</h3>
+                    <ul class="animated-list">
+                        <li>Strategic approach aligning sales, marketing & customer success</li>
+                        <li>Breaks down organizational silos</li>
+                        <li>Creates seamless customer journey</li>
+                        <li>Unifies systems, processes & data</li>
+                    </ul>
+                    
+                    <div class="quote-block">
+                        <blockquote>"RevOps is to business what pit crews are to racing teams - enabling speed, efficiency, and performance."</blockquote>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="diagram-container">
+                        <img src="/images/revops-diagram.png" alt="RevOps Diagram" class="responsive-image">
+                    </div>
+                    
+                    <div class="poll-container" id="revops-poll">
+                        <h4>Quick Poll: Has your organization implemented RevOps?</h4>
+                        <div class="poll-options">
+                            <button class="poll-option" data-value="yes" onclick="submitPoll('yes')">Yes, fully</button>
+                            <button class="poll-option" data-value="partial" onclick="submitPoll('partial')">Partially</button>
+                            <button class="poll-option" data-value="no" onclick="submitPoll('no')">Not yet</button>
+                            <button class="poll-option" data-value="unknown" onclick="submitPoll('unknown')">Not sure</button>
+                        </div>
+                        <div class="poll-results" id="poll-results" style="display: none;">
+                            <h5>Results:</h5>
+                            <div class="result-bars">
+                                <!-- Results will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button prev-button" onclick="prevSlide()"><span class="arrow">←</span> Previous</button>
+            <button class="nav-button next-button" onclick="nextSlide()">Next <span class="arrow">→</span></button>
+        </div>
+        
+        <div class="racing-stripe bottom-stripe"></div>
+    </div>
+    
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = 'https://zdnmzumoccwagafxtnld.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Log slide view
+        async function logSlideView() {
+            try {
+                const { data, error } = await supabase
+                    .from('presentation_logs')
+                    .insert([
+                        { slide: '02-revops-fundamentals', action: 'view', timestamp: new Date().toISOString() }
+                    ]);
+                
+                if (error) throw error;
+                console.log('Slide view logged successfully');
+            } catch (error) {
+                console.error('Error logging slide view:', error.message);
+            }
+        }
+        
+        // Poll submission function
+        async function submitPoll(value) {
+            try {
+                // Disable all poll options
+                document.querySelectorAll('.poll-option').forEach(btn => {
+                    btn.disabled = true;
+                    btn.classList.add('disabled');
+                });
+                
+                // Highlight selected option
+                document.querySelector(`.poll-option[data-value="${value}"]`).classList.add('selected');
+                
+                // Log the poll response
+                const { data, error } = await supabase
+                    .from('poll_responses')
+                    .insert([
+                        { 
+                            poll_id: 'revops-implementation', 
+                            response: value,
+                            timestamp: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) throw error;
+                
+                // Get poll results
+                const { data: results, error: resultsError } = await supabase
+                    .from('poll_responses')
+                    .select('response, count')
+                    .eq('poll_id', 'revops-implementation')
+                    .group('response');
+                
+                if (resultsError) throw resultsError;
+                
+                // Display results
+                displayPollResults(results);
+                
+            } catch (error) {
+                console.error('Error with poll:', error.message);
+                alert('There was a problem submitting your response. Please try again.');
+                
+                // Re-enable poll options
+                document.querySelectorAll('.poll-option').forEach(btn => {
+                    btn.disabled = false;
+                    btn.classList.remove('disabled');
+                });
+            }
+        }
+        
+        // Display poll results
+        function displayPollResults(results) {
+            const resultsContainer = document.getElementById('poll-results');
+            const barsContainer = resultsContainer.querySelector('.result-bars');
+            
+            // Calculate total responses
+            let total = 0;
+            results.forEach(item => {
+                total += item.count;
+            });
+            
+            // Clear previous results
+            barsContainer.innerHTML = '';
+            
+            // Add result bars
+            results.forEach(item => {
+                const percentage = Math.round((item.count / total) * 100);
+                
+                // Create result bar
+                const barWrapper = document.createElement('div');
+                barWrapper.className = 'result-item';
+                
+                // Format the label
+                let label = item.response;
+                if (label === 'yes') label = 'Yes, fully';
+                if (label === 'partial') label = 'Partially';
+                if (label === 'no') label = 'Not yet';
+                if (label === 'unknown') label = 'Not sure';
+                
+                barWrapper.innerHTML = `
+                    <div class="result-label">${label}</div>
+                    <div class="result-bar-container">
+                        <div class="result-bar-fill" style="width: ${percentage}%"></div>
+                    </div>
+                    <div class="result-percentage">${percentage}%</div>
+                `;
+                
+                barsContainer.appendChild(barWrapper);
+            });
+            
+            // Show results container
+            resultsContainer.style.display = 'block';
+        }
+        
+        // Navigation functions
+        function prevSlide() {
+            window.location.href = '01-introduction.html';
+        }
+        
+        function nextSlide() {
+            window.location.href = '03-sales-automation.html';
+        }
+        
+        // Log when slide is loaded
+        window.onload = function() {
+            logSlideView();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Full Throttle Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-red: #E10600;
+            --racing-dark: #121212;
+            --racing-silver: #F7F7F7;
+            --racing-gray: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Titillium Web', sans-serif;
+        }
+        
+        body {
+            background-color: var(--racing-dark);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            width: 400px;
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--racing-red), transparent);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--racing-red);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--racing-silver);
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background-color: rgba(0,0,0,0.2);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--racing-red);
+            box-shadow: 0 0 0 2px rgba(225, 6, 0, 0.3);
+        }
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--racing-red);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(225, 6, 0, 0.3);
+        }
+        
+        button:hover {
+            background-color: #c10500;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(225, 6, 0, 0.4);
+        }
+        
+        .error-message {
+            background-color: rgba(255, 59, 59, 0.1);
+            border-left: 3px solid #ff3b3b;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 5px 5px 0;
+            display: none;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--racing-silver);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Admin Login</h1>
+        
+        <div class="error

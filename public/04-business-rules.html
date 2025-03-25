@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Business Rules & Validation - Full Throttle Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .code-container {
+            background-color: #1E1E1E;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-container pre {
+            color: #D4D4D4;
+        }
+        
+        .code-title {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background-color: var(--racing-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .highlight-comment {
+            color: #6A9955;
+        }
+        
+        .highlight-keyword {
+            color: #569CD6;
+        }
+        
+        .highlight-string {
+            color: #CE9178;
+        }
+        
+        .highlight-function {
+            color: #DCDCAA;
+        }
+        
+        .example-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--racing-green);
+        }
+        
+        .example-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--racing-green);
+        }
+        
+        .rule-step {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .rule-step:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--racing-red);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="racing-stripe top-stripe"></div>
+        
+        <div class="slide-header">
+            <h2>Business Rules & Validation Logic</h2>
+            <div class="progress-indicator">
+                <div class="progress-bar" style="width: 60%;"></div>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <div class="two-column-layout">
+                <div class="left-column">
+                    <h3>Why Business Rules Matter</h3>
+                    <ul class="animated-list">
+                        <li>Enforce data quality standards</li>
+                        <li>Prevent errors from propagating downstream</li>
+                        <li>Ensure compliance with policies</li>
+                        <li>Create consistent customer experiences</li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Lead Routing Example</div>
+                        <div class="rule-step">Incoming lead is received from website form</div>
+                        <div class="rule-step">Validate email domain against approved list</div>
+                        <div class="rule-step">Check company size to determine segment</div>
+                        <div class="rule-step">Route to appropriate sales rep based on territory rules</div>
+                        <div class="rule-step">Notify sales rep via Slack and email</div>
+                    </div>
+                    
+                    <div class="poll-container" id="business-rules-poll">
+                        <h4>Quick Poll: What's your biggest challenge with business rules?</h4>
+                        <div class="poll-options">
+                            <button class="poll-option" data-value="complexity" onclick="submitPoll('complexity')">Too complex</button>
+                            <button class="poll-option" data-value="maintenance" onclick="submitPoll('maintenance')">Hard to maintain</button>
+                            <button class="poll-option" data-value="flexibility" onclick="submitPoll('flexibility')">Lack of flexibility</button>
+                            <button class="poll-option" data-value="visibility" onclick="submitPoll('visibility')">No visibility</button>
+                        </div>
+                        <div class="poll-results" id="poll-results" style="display: none;">
+                            <h5>Results:</h5>
+                            <div class="result-bars">
+                                <!-- Results will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <h3>Implementing Validation Logic</h3>
+                    <p>Modern RevOps platforms allow for sophisticated business rules that can be defined without code:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-title">Lead Scoring Rule</div>
+                        <pre><span class="highlight-comment">// Lead scoring based on engagement and fit criteria</span>
+<span class="highlight-keyword">let</span> score = 0;
+
+<span class="highlight-comment">// Title-based scoring</span>
+<span class="highlight-keyword">if</span> (lead.title.<span class="highlight-function">includes</span>(<span class="highlight-string">'VP'</span>)) {
+    score += 30;
+} <span class="highlight-keyword">else if</span> (lead.title.<span class="highlight-function">includes</span>(<span class="highlight-string">'Director'</span>)) {
+    score += 20;
+} <span class="highlight-keyword">else if</span> (lead.title.<span class="highlight-function">includes</span>(<span class="highlight-string">'Manager'</span>)) {
+    score += 10;
+}
+
+<span class="highlight-comment">// Company size scoring</span>
+<span class="highlight-keyword">if</span> (lead.employees > 1000) {
+    score += 25;
+} <span class="highlight-keyword">else if</span> (lead.employees > 250) {
+    score += 15;
+} <span class="highlight-keyword">else if</span> (lead.employees > 50) {
+    score += 5;
+}
+
+<span class="highlight-comment">// Industry scoring</span>
+<span class="highlight-keyword">const</span> targetIndustries = [<span class="highlight-string">'Technology'</span>, <span class="highlight-string">'Finance'</span>, <span class="highlight-string">'Healthcare'</span>];
+<span class="highlight-keyword">if</span> (targetIndustries.<span class="highlight-function">includes</span>(lead.industry)) {
+    score += 15;
+}
+
+<span class="highlight-comment">// Check if MQL threshold is met</span>
+lead.isMQL = score >= 40;</pre>
+                    </div>
+                    
+                    <div class="code-container">
+                        <div class="code-title">Deal Approval Process</div>
+                        <pre><span class="highlight-comment">// Automated deal approval workflow</span>
+<span class="highlight-keyword">function</span> <span class="highlight-function">determineApprovalPath</span>(deal) {
+    <span class="highlight-keyword">const</span> discountPercent = (1 - deal.finalPrice / deal.listPrice) * 100;
+    
+    <span class="highlight-comment">// Determine approval level based on discount</span>
+    <span class="highlight-keyword">if</span> (discountPercent <= 10) {
+        <span class="highlight-keyword">return</span> <span class="highlight-string">'auto_approved'</span>;
+    } <span class="highlight-keyword">else if</span> (discountPercent <= 20) {
+        <span class="highlight-keyword">return</span> <span class="highlight-string">'sales_manager'</span>;
+    } <span class="highlight-keyword">else if</span> (discountPercent <= 30) {
+        <span class="highlight-keyword">return</span> <span class="highlight-string">'vp_sales'</span>;
+    } <span class="highlight-keyword">else</span> {
+        <span class="highlight-keyword">return</span> <span class="highlight-string">'cro_approval'</span>;
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button prev-button" onclick="prevSlide()"><span class="arrow">←</span> Previous</button>
+            <button class="nav-button next-button" onclick="nextSlide()">Next <span class="arrow">→</span></button>
+        </div>
+        
+        <div class="racing-stripe bottom-stripe"></div>
+    </div>
+    
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = 'https://zdnmzumoccwagafxtnld.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Log slide view
+        async function logSlideView() {
+            try {
+                const { data, error } = await supabase
+                    .from('presentation_logs')
+                    .insert([
+                        { slide: '04-business-rules', action: 'view', timestamp: new Date().toISOString() }
+                    ]);
+                
+                if (error) throw error;
+                console.log('Slide view logged successfully');
+            } catch (error) {
+                console.error('Error logging slide view:', error.message);
+            }
+        }
+        
+        // Poll submission function
+        async function submitPoll(value) {
+            try {
+                // Disable all poll options
+                document.querySelectorAll('.poll-option').forEach(btn => {
+                    btn.disabled = true;
+                    btn.classList.add('disabled');
+                });
+                
+                // Highlight selected option
+                document.querySelector(`.poll-option[data-value="${value}"]`).classList.add('selected');
+                
+                // Log the poll response
+                const { data, error } = await supabase
+                    .from('poll_responses')
+                    .insert([
+                        { 
+                            poll_id: 'business-rules-challenges', 
+                            response: value,
+                            timestamp: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) throw error;
+                
+                // Get poll results
+                const { data: results, error: resultsError } = await supabase
+                    .from('poll_responses')
+                    .select('response, count')
+                    .eq('poll_id', 'business-rules-challenges')
+                    .group('response');
+                
+                if (resultsError) throw resultsError;
+                
+                // Display results
+                displayPollResults(results);
+                
+            } catch (error) {
+                console.error('Error with poll:', error.message);
+                alert('There was a problem submitting your response. Please try again.');
+                
+                // Re-enable poll options
+                document.querySelectorAll('.poll-option').forEach(btn => {
+                    btn.disabled = false;
+                    btn.classList.remove('disabled');
+                });
+            }
+        }
+        
+        // Display poll results
+        function displayPollResults(results) {
+            const resultsContainer = document.getElementById('poll-results');
+            const barsContainer = resultsContainer.querySelector('.result-bars');
+            
+            // Calculate total responses
+            let total = 0;
+            results.forEach(item => {
+                total += item.count;
+            });
+            
+            // Clear previous results
+            barsContainer.innerHTML = '';
+            
+            // Add result bars
+            results.forEach(item => {
+                const percentage = Math.round((item.count / total) * 100);
+                
+                // Create result bar
+                const barWrapper = document.createElement('div');
+                barWrapper.className = 'result-item';
+                
+                // Format the label
+                let label = item.response;
+                if (label === 'complexity') label = 'Too complex';
+                if (label === 'maintenance') label = 'Hard to maintain';
+                if (label === 'flexibility') label = 'Lack of flexibility';
+                if (label === 'visibility') label = 'No visibility';
+                
+                barWrapper.innerHTML = `
+                    <div class="result-label">${label}</div>
+                    <div class="result-bar-container">
+                        <div class="result-bar-fill" style="width: ${percentage}%"></div>
+                    </div>
+                    <div class="result-percentage">${percentage}%</div>
+                `;
+                
+                barsContainer.appendChild(barWrapper);
+            });
+            
+            // Show results container
+            resultsContainer.style.display = 'block';
+        }
+        
+        // Navigation functions
+        function prevSlide() {
+            window.location.href = '03-sales-automation.html';
+        }
+        
+        function nextSlide() {
+            window.location.href = '05-attribution-models.html';
+        }
+        
+        // Log when slide is loaded
+        window.onload = function() {
+            logSlideView();
+        };
+    </script>
+</body>
+</html>

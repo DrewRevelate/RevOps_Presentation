@@ -1,0 +1,370 @@
+:root {
+    --racing-red: #E10600;
+    --racing-dark: #121212;
+    --racing-silver: #F7F7F7;
+    --racing-gray: #333333;
+    --racing-light-gray: #EEEEEE;
+    --racing-yellow: #FFCC00;
+    --racing-blue: #0077FF;
+    --racing-green: #00CC33;
+
+    --gradient-dark: linear-gradient(135deg, #121212, #2a2a2a);
+    --gradient-red: linear-gradient(90deg, #E10600, #FF4136);
+    
+    --shadow-normal: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-large: 0 10px 15px rgba(0, 0, 0, 0.2);
+    
+    --transition-fast: all 0.2s ease;
+    --transition-normal: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--racing-dark);
+    font-family: 'Titillium Web', 'Segoe UI', sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+/* Slide containers and layout */
+.slide-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.racing-stripe {
+    height: 8px;
+    background: var(--gradient-red);
+    width: 100%;
+    position: absolute;
+    left: 0;
+}
+
+.top-stripe {
+    top: 0;
+}
+
+.bottom-stripe {
+    bottom: 0;
+}
+
+.slide-header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+.slide-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--racing-silver);
+}
+
+.progress-indicator {
+    width: 150px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--racing-red);
+    border-radius: 4px;
+    transition: var(--transition-normal);
+}
+
+.slide-content {
+    flex: 1;
+    padding: 20px 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide-navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    z-index: 2;
+}
+
+/* Interactive Components */
+.nav-button {
+    padding: 10px 20px;
+    background-color: var(--racing-dark);
+    color: white;
+    border: 2px solid var(--racing-red);
+    border-radius: 30px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+}
+
+.nav-button:hover {
+    background-color: var(--racing-red);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-normal);
+}
+
+.arrow {
+    display: inline-block;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+/* Typography and content styles */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.main-title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.title-part {
+    display: block;
+}
+
+.highlight {
+    color: var(--racing-red);
+}
+
+.subtitle {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+ul, ol {
+    margin-bottom: 20px;
+    padding-left: 25px;
+}
+
+li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.animated-list li {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+.animated-list li:nth-child(1) { animation-delay: 0.1s; }
+.animated-list li:nth-child(2) { animation-delay: 0.3s; }
+.animated-list li:nth-child(3) { animation-delay: 0.5s; }
+.animated-list li:nth-child(4) { animation-delay: 0.7s; }
+.animated-list li:nth-child(5) { animation-delay: 0.9s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Layout helpers */
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.two-column-layout {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.left-column,
+.right-column {
+    flex: 1;
+}
+
+/* Special slide types */
+.intro-slide .slide-content {
+    justify-content: center;
+}
+
+.logo-container {
+    margin-bottom: 40px;
+}
+
+.main-logo {
+    max-width: 200px;
+    height: auto;
+}
+
+.presenter-info {
+    margin-top: 60px;
+    opacity: 0.8;
+    font-size: 1.2rem;
+}
+
+/* Interactive components */
+.poll-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    border-left: 4px solid var(--racing-blue);
+}
+
+.poll-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.poll-option {
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.poll-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.poll-option.selected {
+    background: var(--racing-blue);
+    border-color: transparent;
+}
+
+.poll-option.disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.poll-results {
+    margin-top: 20px;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.result-label {
+    width: 100px;
+    font-size: 14px;
+}
+
+.result-bar-container {
+    flex: 1;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 15px;
+}
+
+.result-bar-fill {
+    height: 100%;
+    background: var(--racing-blue);
+    border-radius: 8px;
+    transition: width 1s ease;
+}
+
+.result-percentage {
+    width: 50px;
+    font-size: 14px;
+    text-align: right;
+}
+
+/* Visual elements */
+.quote-block {
+    margin: 30px 0;
+    padding: 20px 25px;
+    border-left: 4px solid var(--racing-red);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0 8px 8px 0;
+}
+
+blockquote {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.diagram-container {
+    margin-bottom: 20px;
+}
+
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow-normal);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .two-column-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .main-title {
+        font-size: 3rem;
+    }
+    
+    .subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .slide-header,
+    .slide-content,
+    .slide-navigation {
+        padding: 15px 20px;
+    }
+}
+
+/* Iframe fix to ensure proper display across all devices */
+iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+}

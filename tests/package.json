@@ -1,0 +1,24 @@
+{
+  "name": "fullthrottle-tests",
+  "version": "1.0.0",
+  "description": "Test suite for FullThrottle Revenue presentation",
+  "scripts": {
+    "test": "npm run test:all",
+    "test:all": "npm run test:presentation && npm run test:supabase && npm run test:vercel",
+    "test:presentation": "node presentation-tests.js",
+    "test:supabase": "node supabase-tests.js",
+    "test:vercel": "node vercel-deployment-test.js",
+    "check-puppeteer": "node check-puppeteer.js",
+    "fix-permissions": "xattr -d com.apple.quarantine node_modules/puppeteer/.local-chromium/*/chrome-mac/Chromium.app || echo 'Permission command not needed or failed'",
+    "setup-db": "node setup-supabase-tables.js",
+    "test:api": "node supabase-direct-test.js",
+    "setup": "npm install && ./setup-tests.sh"
+  },
+  "author": "Drew Lambert",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.21.0",
+    "dotenv": "^16.0.3",
+    "puppeteer": "^19.11.1"
+  }
+}

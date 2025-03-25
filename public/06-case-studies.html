@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Case Studies - Full Throttle Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .case-studies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .case-study-card {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.7), rgba(20, 20, 20, 0.9));
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+            animation-delay: var(--delay);
+        }
+        
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .case-study-card:nth-child(1) { --delay: 0.1s; }
+        .case-study-card:nth-child(2) { --delay: 0.3s; }
+        .case-study-card:nth-child(3) { --delay: 0.5s; }
+        
+        .card-banner {
+            height: 130px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 30%, rgba(0, 0, 0, 0.8) 100%);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: -40px 0 15px 0;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .company-logo img {
+            max-width: 75%;
+            max-height: 75%;
+        }
+        
+        .case-study-card h4 {
+            margin-bottom: 10px;
+            color: var(--racing-silver);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--racing-red);
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: var(--racing-silver);
+            opacity: 0.8;
+        }
+        
+        .challenge-solution {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .cs-label {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .challenge-label {
+            color: #FF7E7E;
+        }
+        
+        .solution-label {
+            color: #7EFF9E;
+            margin-top: 10px;
+        }
+        
+        .key-takeaways {
+            margin-top: 40px;
+        }
+        
+        .takeaway-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .takeaway-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--racing-red);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="racing-stripe top-stripe"></div>
+        
+        <div class="slide-header">
+            <h2>Real-World Case Studies</h2>
+            <div class="progress-indicator">
+                <div class="progress-bar" style="width: 90%;"></div>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <h3>RevOps Success Stories</h3>
+            
+            <div class="case-studies-container">
+                <div class="case-study-card">
+                    <div class="card-banner" style="background-image: url('/images/tech-banner.jpg');"></div>
+                    <div class="card-content">
+                        <div class="company-logo">
+                            <img src="/images/placeholder.svg" alt="TechCorp Logo">
+                        </div>
+                        <h4>TechCorp SaaS Platform</h4>
+                        <p>Enterprise software company struggling with lead management and attribution</p>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <div class="metric-value">38%</div>
+                                <div class="metric-label">Increase in Conversion</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">$2.4M</div>
+                                <div class="metric-label">Added Revenue</div>
+                            </div>
+                        </div>
+                        
+                        <div class="challenge-solution">
+                            <div class="cs-label challenge-label">Challenge:</div>
+                            <p>Disconnected marketing and sales systems causing lead leakage and poor attribution</p>
+                            
+                            <div class="cs-label solution-label">Solution:</div>
+                            <p>Implemented unified RevOps platform with multi-touch attribution and automated lead routing</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="card-banner" style="background-image: url('/images/finance-banner.jpg');"></div>
+                    <div class="card-content">
+                        <div class="company-logo">
+                            <img src="/images/placeholder.svg" alt="FinServe Logo">
+                        </div>
+                        <h4>FinServe Financial Group</h4>
+                        <p>Financial services firm with complex compliance requirements</p>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <div class="metric-value">72%</div>
+                                <div class="metric-label">Reduced Manual Reviews</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">3.5x</div>
+                                <div class="metric-label">Deal Velocity</div>
+                            </div>
+                        </div>
+                        
+                        <div class="challenge-solution">
+                            <div class="cs-label challenge-label">Challenge:</div>
+                            <p>Lengthy approval processes and manual compliance checks slowing down sales cycle</p>
+                            
+                            <div class="cs-label solution-label">Solution:</div>
+                            <p>Automated business rules engine with built-in compliance validation and tiered approval workflows</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-study-card">
+                    <div class="card-banner" style="background-image: url('/images/ecommerce-banner.jpg');"></div>
+                    <div class="card-content">
+                        <div class="company-logo">
+                            <img src="/images/placeholder.svg" alt="ShopQuick Logo">
+                        </div>
+                        <h4>ShopQuick E-commerce</h4>
+                        <p>Online retailer struggling with customer retention and repeat purchases</p>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <div class="metric-value">47%</div>
+                                <div class="metric-label">Improved Retention</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">29%</div>
+                                <div class="metric-label">Higher AOV</div>
+                            </div>
+                        </div>
+                        
+                        <div class="challenge-solution">
+                            <div class="cs-label challenge-label">Challenge:</div>
+                            <p>Siloed customer data preventing personalized engagement and retention strategies</p>
+                            
+                            <div class="cs-label solution-label">Solution:</div>
+                            <p>Unified customer data platform with automated segmentation and personalized engagement workflows</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-takeaways">
+                <h3>Key Takeaways</h3>
+                
+                <div class="takeaway-item">
+                    <div class="takeaway-icon">1</div>
+                    <div>
+                        <strong>Data Unification</strong>: Breaking down silos between marketing, sales, and customer success creates a seamless customer journey.
+                    </div>
+                </div>
+                
+                <div class="takeaway-item">
+                    <div class="takeaway-icon">2</div>
+                    <div>
+                        <strong>Process Automation</strong>: Automated business rules and workflows dramatically reduce manual effort and accelerate deal velocity.
+                    </div>
+                </div>
+                
+                <div class="takeaway-item">
+                    <div class="takeaway-icon">3</div>
+                    <div>
+                        <strong>Revenue Intelligence</strong>: Data-driven insights enable better decision-making and more accurate forecasting.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button prev-button" onclick="prevSlide()"><span class="arrow">←</span> Previous</button>
+            <button class="nav-button next-button" onclick="nextSlide()">Next <span class="arrow">→</span></button>
+        </div>
+        
+        <div class="racing-stripe bottom-stripe"></div>
+    </div>
+    
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = 'https://zdnmzumoccwagafxtnld.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Log slide view
+        async function logSlideView() {
+            try {
+                const { data, error } = await supabase
+                    .from('presentation_logs')
+                    .insert([
+                        { slide: '06-case-studies', action: 'view', timestamp: new Date().toISOString() }
+                    ]);
+                
+                if (error) throw error;
+                console.log('Slide view logged successfully');
+            } catch (error) {
+                console.error('Error logging slide view:', error.message);
+            }
+        }
+        
+        // Navigation functions
+        function prevSlide() {
+            window.location.href = '05-attribution-models.html';
+        }
+        
+        function nextSlide() {
+            window.location.href = '07-conclusion.html';
+        }
+        
+        // Log when slide is loaded
+        window.onload = function() {
+            logSlideView();
+        };
+    </script>
+</body>
+</html>

@@ -32,8 +32,6 @@ const supabaseDb = require('./db/supabase/database');
 const db = supabaseDb.db;
 const runSqlScript = supabaseDb.runSqlScript;
 
-const { requireAuth, handleLogin, handleLogout } = require('./middleware/auth');
-
 // Create necessary directories for uploads/exports
 const dirs = [
     path.join(baseDir, 'data'),
@@ -55,7 +53,6 @@ try {
 
 // Import routes
 const apiRoutes = require('./routes/api');
-const adminRoutes = require('./routes/admin');
 const contactFormRoutes = require('./routes/contact-form');
 
 // Initialize Express
@@ -73,6 +70,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 // Enhanced logging middleware to debug static file requests
 app.use((req, res, next) => {
     if (req.path.includes('.css') || req.path.includes('.js') || req.path.includes('.html') || req.path.includes('.png') || req.path.includes('.jpg') || req.path.includes('.svg')) {
@@ -117,14 +115,6 @@ app.get('/health', (req, res) => {
     });
 });
 
-// Authentication routes
-app.get('/admin/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'admin-login.html'));
-});
-
-app.post('/admin/auth', handleLogin);
-app.get('/admin/logout', handleLogout);
-
 // API routes
 app.use('/api', apiRoutes);
 
@@ -151,9 +141,6 @@ app.get('/slide/:slideNumber', (req, res) => {
         res.status(404).send(`Slide ${slideNumber} not found`);
     }
 });
-
-// Admin routes with authentication
-app.use('/admin', requireAuth, adminRoutes);
 
 // Placeholder image API
 app.get('/api/placeholder/:width/:height', (req, res) => {

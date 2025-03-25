@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Introduction - Full Throttle Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="slide-container intro-slide">
+        <div class="racing-stripe top-stripe"></div>
+        
+        <div class="slide-content centered-content">
+            <div class="logo-container">
+                <img src="/images/logo.png" alt="Full Throttle Logo" class="main-logo">
+            </div>
+            
+            <h1 class="main-title">
+                <span class="title-part">Full Throttle</span>
+                <span class="title-part highlight">Revenue</span>
+            </h1>
+            
+            <h2 class="subtitle">How RevOps & Automation Drive Success</h2>
+            
+            <div class="presenter-info">
+                <p>Presented by: Drew Lambert</p>
+                <p>Manning School of Business, UMass Lowell</p>
+                <p>March 26-27, 2025</p>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button next-button" onclick="nextSlide()">Start <span class="arrow">→</span></button>
+        </div>
+        
+        <div class="racing-stripe bottom-stripe"></div>
+    </div>
+    
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = 'https://zdnmzumoccwagafxtnld.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Log presentation start
+        async function logPresentation() {
+            try {
+                const { data, error } = await supabase
+                    .from('presentation_logs')
+                    .insert([
+                        { slide: '01-introduction', action: 'view', timestamp: new Date().toISOString() }
+                    ]);
+                
+                if (error) throw error;
+                console.log('Presentation start logged successfully');
+            } catch (error) {
+                console.error('Error logging presentation start:', error.message);
+            }
+        }
+        
+        // Navigation functions
+        function nextSlide() {
+            window.location.href = '02-revops-fundamentals.html';
+        }
+        
+        // Log when slide is loaded
+        window.onload = function() {
+            logPresentation();
+        };
+    </script>
+</body>
+</html>

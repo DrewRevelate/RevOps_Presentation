@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Conclusion - Full Throttle Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .conclusion-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .checkered-flag {
+            margin: 20px auto;
+            max-width: 100px;
+            animation: waveFlag 3s infinite;
+        }
+        
+        @keyframes waveFlag {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        .conclusion-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--racing-red);
+        }
+        
+        .key-points-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            text-align: left;
+        }
+        
+        .key-point {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            border-top: 4px solid var(--racing-red);
+            opacity: 0;
+            animation: fadeUp 0.5s forwards;
+            animation-delay: var(--delay);
+        }
+        
+        .key-point:nth-child(1) { --delay: 0.1s; }
+        .key-point:nth-child(2) { --delay: 0.3s; }
+        .key-point:nth-child(3) { --delay: 0.5s; }
+        
+        .key-point h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .key-point p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            margin-top: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+        }
+        
+        .contact-info h4 {
+            margin-bottom: 15px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--racing-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--racing-red);
+            transform: translateY(-3px);
+        }
+        
+        .thank-you-message {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 1.5s;
+        }
+        
+        .feedback-form {
+            margin: 30px auto;
+            max-width: 500px;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: white;
+            font-family: 'Titillium Web', sans-serif;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--racing-red);
+        }
+        
+        .rating-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .rating-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .rating-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .rating-button.selected {
+            background-color: var(--racing-red);
+            border-color: var(--racing-red);
+        }
+        
+        .submit-button {
+            background-color: var(--racing-red);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-button:hover {
+            background-color: #c10500;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="racing-stripe top-stripe"></div>
+        
+        <div class="slide-header">
+            <h2>Conclusion</h2>
+            <div class="progress-indicator">
+                <div class="progress-bar" style="width: 100%;"></div>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <div class="conclusion-content">
+                <img src="/images/checkered-flag.png" alt="Checkered Flag" class="checkered-flag">
+                <h2 class="conclusion-title">The Finish Line: RevOps Excellence</h2>
+                
+                <p>Thank you for joining this exploration of how Revenue Operations and Automation drive business success! Like a well-tuned racing team, modern businesses need integrated systems, streamlined processes, and data-driven insights to compete effectively.</p>
+                
+                <div class="key-points-container">
+                    <div class="key-point">
+                        <h4>Integration</h4>
+                        <p>Breaking down silos between marketing, sales, and customer success creates a unified approach to revenue generation.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <h4>Automation</h4>
+                        <p>Implementing business rules and workflows eliminates manual tasks and ensures consistent execution.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <h4>Intelligence</h4>
+                        <p>Using data and analytics provides the insights needed to make informed decisions and optimize revenue performance.</p>
+                    </div>
+                </div>
+                
+                <div class="feedback-form">
+                    <h3>Your Feedback</h3>
+                    <p>Please take a moment to share your thoughts on today's presentation.</p>
+                    
+                    <div class="form-group">
+                        <label>How would you rate this presentation? (1-5)</label>
+                        <div class="rating-buttons">
+                            <div class="rating-button" data-rating="1" onclick="selectRating(1)">1</div>
+                            <div class="rating-button" data-rating="2" onclick="selectRating(2)">2</div>
+                            <div class="rating-button" data-rating="3" onclick="selectRating(3)">3</div>
+                            <div class="rating-button" data-rating="4" onclick="selectRating(4)">4</div>
+                            <div class="rating-button" data-rating="5" onclick="selectRating(5)">5</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback-comments">Additional Comments:</label>
+                        <textarea id="feedback-comments" class="form-control" rows="3" placeholder="Share your thoughts..."></textarea>
+                    </div>
+                    
+                    <button class="submit-button" onclick="submitFeedback()">Submit Feedback</button>
+                </div>
+                
+                <div class="contact-info">
+                    <h4>Drew Lambert</h4>
+                    <p>Email: drew@revelateops.com</p>
+                    <p>Website: revelateops.com</p>
+                    
+                    <div class="social-icons">
+                        <div class="social-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 9H2V21H6V9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="social-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23 3.00005C22.0424 3.67552 20.9821 4.19216 19.86 4.53005C19.2577 3.83756 18.4573 3.34674 17.567 3.12397C16.6767 2.90121 15.7395 2.95724 14.8821 3.2845C14.0247 3.61176 13.2884 4.19445 12.773 4.95376C12.2575 5.71308 11.9877 6.61238 12 7.53005V8.53005C10.2426 8.57561 8.50127 8.18586 6.93101 7.39549C5.36074 6.60513 4.01032 5.43868 3 4.00005C3 4.00005 -1 13 8 17C5.94053 18.398 3.48716 19.099 1 19C10 24 21 19 21 7.50005C20.9991 7.2215 20.9723 6.94364 20.92 6.67005C21.9406 5.66354 22.6608 4.39276 23 3.00005Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="social-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 7.99987V7.99987C16.9046 7.99987 17.8096 7.99987 18.9 7.99987C19.9 7.99987 20.9 8.89987 21 9.99987C21.1 11.0999 21 18.9999 21 19.9999C21 20.9999 20.1 21.9999 19 21.9999C17.9 21.9999 10 21.8999 9 21.9999C8 22.0999 7 21.1999 7 19.9999C6.9 18.7999 7 11.0999 7 9.99987C7 8.89987 7.9 7.99987 9 7.99987C10.1 7.99987 10.9046 7.99987 12 7.99987" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.5 12C17.5 14.7614 15.2614 17 12.5 17C9.73858 17 7.5 14.7614 7.5 12C7.5 9.23858 9.73858 7 12.5 7C15.2614 7 17.5 9.23858 17.5 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.5 7V7C17.5 6.44772 17.9477 6 18.5 6V6C19.0523 6 19.5 6.44772 19.5 7V7C19.5 7.55228 19.0523 8 18.5 8V8C17.9477 8 17.5 7.55228 17.5 7Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="thank-you-message">
+                    Thank you for your attention!
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button prev-button" onclick="prevSlide()"><span class="arrow">←</span> Previous</button>
+            <button class="nav-button home-button" onclick="goHome()">Back to Start</button>
+        </div>
+        
+        <div class="racing-stripe bottom-stripe"></div>
+    </div>
+    
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = 'https://zdnmzumoccwagafxtnld.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Log slide view
+        async function logSlideView() {
+            try {
+                const { data, error } = await supabase
+                    .from('presentation_logs')
+                    .insert([
+                        { slide: '07-conclusion', action: 'view', timestamp: new Date().toISOString() }
+                    ]);
+                
+                if (error) throw error;
+                console.log('Slide view logged successfully');
+            } catch (error) {
+                console.error('Error logging slide view:', error.message);
+            }
+        }
+        
+        // Current rating selection
+        let selectedRating = 0;
+        
+        // Handle rating selection
+        function selectRating(rating) {
+            selectedRating = rating;
+            
+            // Update UI
+            document.querySelectorAll('.rating-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            document.querySelector(`.rating-button[data-rating="${rating}"]`).classList.add('selected');
+        }
+        
+        // Submit feedback to Supabase
+        async function submitFeedback() {
+            const comments = document.getElementById('feedback-comments').value;
+            
+            if (selectedRating === 0) {
+                alert('Please select a rating before submitting.');
+                return;
+            }
+            
+            try {
+                // Disable submit button
+                const submitBtn = document.querySelector('.submit-button');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                
+                // Submit to Supabase
+                const { data, error } = await supabase
+                    .from('presentation_feedback')
+                    .insert([
+                        { 
+                            rating: selectedRating,
+                            comments: comments,
+                            timestamp: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) throw error;
+                
+                // Update UI
+                submitBtn.textContent = 'Feedback Submitted!';
+                
+                // Disable form
+                document.querySelectorAll('.rating-button').forEach(btn => {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.5';
+                });
+                
+                document.getElementById('feedback-comments').disabled = true;
+                
+                // Show thank you message
+                setTimeout(() => {
+                    alert('Thank you for your feedback!');
+                }, 500);
+                
+            } catch (error) {
+                console.error('Error submitting feedback:', error.message);
+                alert('There was a problem submitting your feedback. Please try again.');
+                
+                // Reset button
+                document.querySelector('.submit-button').disabled = false;
+                document.querySelector('.submit-button').textContent = 'Submit Feedback';
+            }
+        }
+        
+        // Navigation functions
+        function prevSlide() {
+            window.location.href = '06-case-studies.html';
+        }
+        
+        function goHome() {
+            window.location.href = '01-introduction.html';
+        }
+        
+        // Log when slide is loaded
+        window.onload = function() {
+            logSlideView();
+        };
+    </script>
+</body>
+</html>

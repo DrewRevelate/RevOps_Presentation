@@ -1,0 +1,60 @@
+{
+  "totalTests": 9,
+  "passedTests": 2,
+  "failedTests": 7,
+  "skippedTests": 0,
+  "details": [
+    {
+      "test": "Load Index",
+      "status": "failed",
+      "message": "Failed to load index page",
+      "error": "Error: net::ERR_CONNECTION_REFUSED at http://localhost:3000/"
+    },
+    {
+      "test": "Navigate to Slide 1",
+      "status": "failed",
+      "message": "Failed while waiting for presentation container",
+      "error": "TimeoutError: Waiting for selector `#presentationContainer iframe, #loadingScreen` failed: Waiting failed: 60000ms exceeded"
+    },
+    {
+      "test": "Navigate to Slide 2",
+      "status": "failed",
+      "message": "Navigation failed",
+      "error": "Error: No element found for selector: .nav-button.next"
+    },
+    {
+      "test": "Navigate Through Slides",
+      "status": "failed",
+      "message": "Failed during slide navigation",
+      "error": "Error: net::ERR_CONNECTION_REFUSED at http://localhost:3000/public/03-revenue-acceleration.html"
+    },
+    {
+      "test": "Supabase Auth",
+      "status": "passed",
+      "message": "Successfully connected to Supabase auth service"
+    },
+    {
+      "test": "Poll Definitions Table",
+      "status": "failed",
+      "message": "Error accessing table",
+      "error": "[object Object]"
+    },
+    {
+      "test": "Predefined Polls",
+      "status": "passed",
+      "message": "Successfully verified predefined polls exist"
+    },
+    {
+      "test": "Poll Functionality",
+      "status": "failed",
+      "message": "Unexpected error in poll functionality tests",
+      "error": "Error: net::ERR_CONNECTION_REFUSED at http://localhost:3000/public/03-revenue-acceleration.html"
+    },
+    {
+      "test": "Responsive Design",
+      "status": "failed",
+      "message": "Unexpected error in responsive design tests",
+      "error": "Error: net::ERR_CONNECTION_REFUSED at http://localhost:3000/public/01-introduction.html"
+    }
+  ]
+}

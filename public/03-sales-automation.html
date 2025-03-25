@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sales Automation - Full Throttle Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .timeline-container {
+            position: relative;
+            margin: 40px 0;
+            padding-left: 30px;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--racing-red);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-item.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -34px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background-color: var(--racing-red);
+            border-radius: 50%;
+            border: 3px solid var(--racing-dark);
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--racing-red);
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .timeline-content h4 {
+            margin-bottom: 10px;
+        }
+        
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tech-badge {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="racing-stripe top-stripe"></div>
+        
+        <div class="slide-header">
+            <h2>Sales Automation Technologies</h2>
+            <div class="progress-indicator">
+                <div class="progress-bar" style="width: 40%;"></div>
+            </div>
+        </div>
+        
+        <div class="slide-content">
+            <h3>Evolution of Sales Technology</h3>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item" id="item-1">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">1980s - 1990s</div>
+                    <div class="timeline-content">
+                        <h4>Contact Management</h4>
+                        <p>Basic digital rolodex systems for storing customer information</p>
+                        <div class="tech-badges">
+                            <span class="tech-badge">ACT!</span>
+                            <span class="tech-badge">Goldmine</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" id="item-2">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">1990s - 2000s</div>
+                    <div class="timeline-content">
+                        <h4>Customer Relationship Management (CRM)</h4>
+                        <p>Comprehensive systems for tracking leads, opportunities, and customer interactions</p>
+                        <div class="tech-badges">
+                            <span class="tech-badge">Siebel</span>
+                            <span class="tech-badge">Salesforce</span>
+                            <span class="tech-badge">Microsoft Dynamics</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" id="item-3">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2000s - 2010s</div>
+                    <div class="timeline-content">
+                        <h4>Marketing Automation</h4>
+                        <p>Tools to automate repetitive marketing tasks and nurture leads at scale</p>
+                        <div class="tech-badges">
+                            <span class="tech-badge">Marketo</span>
+                            <span class="tech-badge">HubSpot</span>
+                            <span class="tech-badge">Pardot</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" id="item-4">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2010s - 2020s</div>
+                    <div class="timeline-content">
+                        <h4>Sales Engagement Platforms</h4>
+                        <p>Tools that automate personalized outreach at scale and track engagement</p>
+                        <div class="tech-badges">
+                            <span class="tech-badge">Outreach</span>
+                            <span class="tech-badge">SalesLoft</span>
+                            <span class="tech-badge">Apollo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" id="item-5">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2020s - Present</div>
+                    <div class="timeline-content">
+                        <h4>AI-Powered Revenue Intelligence</h4>
+                        <p>Systems that use AI to analyze sales conversations, predict outcomes, and recommend next best actions</p>
+                        <div class="tech-badges">
+                            <span class="tech-badge">Gong</span>
+                            <span class="tech-badge">Chorus</span>
+                            <span class="tech-badge">Clari</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button prev-button" onclick="prevSlide()"><span class="arrow">←</span> Previous</button>
+            <button class="nav-button next-button" onclick="nextSlide()">Next <span class="arrow">→</span></button>
+        </div>
+        
+        <div class="racing-stripe bottom-stripe"></div>
+    </div>
+    
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = 'https://zdnmzumoccwagafxtnld.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Log slide view
+        async function logSlideView() {
+            try {
+                const { data, error } = await supabase
+                    .from('presentation_logs')
+                    .insert([
+                        { slide: '03-sales-automation', action: 'view', timestamp: new Date().toISOString() }
+                    ]);
+                
+                if (error) throw error;
+                console.log('Slide view logged successfully');
+            } catch (error) {
+                console.error('Error logging slide view:', error.message);
+            }
+        }
+        
+        // Animate timeline items one by one
+        function animateTimeline() {
+            const items = document.querySelectorAll('.timeline-item');
+            
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('active');
+                }, 500 + (index * 500)); // Delay increases for each item
+            });
+        }
+        
+        // Navigation functions
+        function prevSlide() {
+            window.location.href = '02-revops-fundamentals.html';
+        }
+        
+        function nextSlide() {
+            window.location.href = '04-business-rules.html';
+        }
+        
+        // Log when slide is loaded and start animations
+        window.onload = function() {
+            logSlideView();
+            animateTimeline();
+        };
+    </script>
+</body>
+</html>
