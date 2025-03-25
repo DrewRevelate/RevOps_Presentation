@@ -40,23 +40,45 @@
     
     <script>
         // Initialize Supabase client
-        const supabaseUrl = 'https://zdnmzumoccwagafxtnld.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        // Use a try-catch block to handle any potential errors
+        let supabase;
+        try {
+            const supabaseUrl = 'https://zdnmzumoccwagafxtnld.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8';
+            supabase = window.supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+            console.log('Supabase client initialized successfully');
+        } catch (error) {
+            console.error('Error initializing Supabase client:', error);
+            // Create a fallback object that doesn't throw errors when methods are called
+            supabase = window.supabaseClient = {
+                from: () => ({
+                    insert: () => Promise.resolve({ data: null, error: { message: 'Offline mode' } }),
+                    select: () => Promise.resolve({ data: [], error: null }),
+                    eq: () => Promise.resolve({ data: [], error: null }),
+                    group: () => Promise.resolve({ data: [], error: null })
+                })
+            };
+            console.warn('Using offline fallback for Supabase');
+        }
         
-        // Log presentation start
+        // Log presentation start - with error handling
         async function logPresentation() {
             try {
+                if (!supabase) throw new Error('Supabase client not initialized');
+                
                 const { data, error } = await supabase
                     .from('presentation_logs')
                     .insert([
                         { slide: '01-introduction', action: 'view', timestamp: new Date().toISOString() }
                     ]);
                 
-                if (error) throw error;
-                console.log('Presentation start logged successfully');
+                if (error) {
+                    console.warn('Non-fatal error logging presentation start:', error.message);
+                } else {
+                    console.log('Presentation start logged successfully');
+                }
             } catch (error) {
-                console.error('Error logging presentation start:', error.message);
+                console.warn('Failed to log presentation start (non-fatal):', error.message);
             }
         }
         
@@ -67,7 +89,9 @@
         
         // Log when slide is loaded
         window.onload = function() {
-            logPresentation();
+            logPresentation().catch(error => {
+                console.warn('Error in logPresentation (non-fatal):', error);
+            });
         };
     </script>
 </body>

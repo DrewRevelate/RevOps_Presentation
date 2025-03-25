@@ -5,18 +5,23 @@
     { "src": "server.js", "use": "@vercel/node" },
     { "src": "public/**", "use": "@vercel/static" },
     { "src": "styles.css", "use": "@vercel/static" },
-    { "src": "images/**", "use": "@vercel/static" }
+    { "src": "images/**", "use": "@vercel/static" },
+    { "src": "index.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/", "dest": "/index.html" },
     { "src": "/styles.css", "dest": "/styles.css" },
     { "src": "/images/(.*)", "dest": "/images/$1" },
     { "src": "/public/(.*)", "dest": "/public/$1" },
-    { "src": "/api/(.*)", "dest": "server.js" },
-    { "src": "/(.*)", "dest": "server.js" }
+    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/health", "dest": "/server.js" },
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/(.*)", "dest": "/server.js" }
   ],
   "env": {
-    "VERCEL": "1"
+    "VERCEL": "1",
+    "SUPABASE_URL": "https://zdnmzumoccwagafxtnld.supabase.co",
+    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpkbm16dW1vY2N3YWdhZnh0bmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI0NDYyNTEsImV4cCI6MjA1ODAyMjI1MX0.kHCrQ0HG08Myk4JFzxgIyAvbeAcHtrc8YwE08rhHxQ8",
+    "NODE_ENV": "production"
   },
   "regions": ["sfo1"]
 }
